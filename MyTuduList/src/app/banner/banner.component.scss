@@ -1,0 +1,30 @@
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+
+  .toolbar #Github-logo:hover {
+    opacity: 0.5;
+  }
+
+  #Welcome-span{
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+  }
