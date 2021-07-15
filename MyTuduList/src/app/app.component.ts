@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { ListDataService } from './backend/service/list-data.service'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,38 +8,39 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'MyTuduList';
 
-  realList = [] as  any;
+  realList = [] as any;
 
   count = 1;
 
   toDoList = [
     {
-      title: "Breathe",
-      description: "I mean, you need it"
-    },
-    {
-      title: "Think",
-      description: "I mean, you have to"
-    },
-    {
-      title: "Carry on",
-      description: "Nothing its permanent"
-    },
+      title: "Make new notes",
+      description: "Fill your Tudu list with new notes!"
+    }
   ]
 
-  
-  addNote(){
+  constructor(private listData: ListDataService) { }
+
+  addNote() {
     this.realList.push({
       title: "Add test: " + this.count++,
-    description: "Testing"})
+      description: "Testing"
+    })
     alert("Added");
   }
 
 
-  ngOnInit(): void{
-    if(!(this.realList.length>0)){
+  ngOnInit(): void {
+
+
+    this.realList = this.listData.getList().then(
+      data => this.realList = data
+      ).catch(err => alert("ERROR"))
+
+    if (this.realList === undefined || !(this.realList.length > 0)) {
       this.toDoList.forEach(val => this.realList.push(val));
     }
+
 
     console.log(this.realList)
   }
