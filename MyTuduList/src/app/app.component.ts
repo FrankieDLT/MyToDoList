@@ -29,6 +29,13 @@ export class AppComponent {
     alert("Added");
   }
 
+  editNote(item: any){
+      console.log("This item will be modifyed" + JSON.stringify(item));
+  }
+
+  removeNote(item: any){
+    console.log("This item will be removed" + JSON.stringify(item));
+  }
 
   ngOnInit(): void {
 

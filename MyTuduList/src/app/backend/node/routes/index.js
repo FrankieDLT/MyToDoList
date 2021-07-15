@@ -10,9 +10,16 @@ router.get('/getList', (req,res) => {
     const url = path.join(__dirname,'..','..','..','..','..', '/src/assets/files/list.txt') 
     fileArr = fs.readFileSync(url)
     arrayfie = eval(fileArr.toString())
-
     res.send(arrayfie);
 })
+
+/*
+POST
+
+    var resu = [].concat(...arrayfie).map(({title})=>title);
+    console.log("Index of BuyMilk: " + resu.indexOf('Buy milk'));
+
+*/
 
 module.exports = router;
 

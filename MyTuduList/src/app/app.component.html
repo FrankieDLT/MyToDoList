@@ -12,15 +12,21 @@
   </div>
 
   <div id="TodoDiv">
-    <h2 id="todo-title">To Do List:</h2>  
+    <h2 id="todo-title">To Do List:</h2>
     <button id="add_button" (click)="addNote()">+</button>
     <ul>
       <li *ngFor="let item of realList">
-        <div>
-          <h2>{{item.title}}</h2>
-          <span>{{item.description}}</span>
+        <div class="container">
+          <div class="tittle-button">
+            <h2>{{item.title}}</h2>
+            <span>{{item.description}}</span>
+          </div>
+          <div>
+          <button (click)="editNote(item)" id="edit">Edit</button>
+          <button (click)="removeNote(item)">Remove</button>
+          </div>
         </div>
       </li>
     </ul>
   </div>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

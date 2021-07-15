@@ -87,6 +87,20 @@
     margin-left: 5vw;
   }
 
+  .tittle-button{
+    display: inline-table;
+  }
+
+  .container{
+    width: 100%; 
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #edit {
+    margin-right: 5px;
+  }
+
   #TodoDiv{
     background-color: purple;
     background-image: url("../assets/Images/Paper.png");
