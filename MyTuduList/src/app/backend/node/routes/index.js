@@ -9,15 +9,15 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 
 const url = path.join(__dirname, '..', '..', '..', '..', '..', '/src/assets/files/list.txt')
-fileArr = fs.readFileSync(url)
-arrayfie = eval(fileArr.toString())
-var resu = [].concat(...arrayfie).map(({
-  title
-}) => title);
+
 
 
 router.get('/getList', (req, res) => {
-
+    fileArr = fs.readFileSync(url)
+    arrayfie = eval(fileArr.toString())
+    var resu = [].concat(...arrayfie).map(({
+      title
+    }) => title);
   res.send(arrayfie);
 })
 
@@ -41,6 +41,23 @@ router.post('/postList', bodyParser.json(), (req, res) => {
 
 })
 
+router.put('/changeList/:id', bodyParser.json(),function(req,res) {
+  fileArr = fs.readFileSync(url)
+    arrayfie = eval(fileArr.toString())
+    var resu = [].concat(...arrayfie).map(({
+    title
+    }) => title);
+
+    if (resu.indexOf(req.params.id) != -1) {
+      arrayfie[resu.indexOf(req.params.id)] = {"title" : req.body.title,"description":req.body.description}
+      fs.writeFileSync(url, JSON.stringify(arrayfie));
+    } else {
+      res.sendStatus(404);
+    }
+    res.end();
+  
+})
+
 router.delete('/deleteFromList/:id', function (req, res) {
     fileArr = fs.readFileSync(url)
     arrayfie = eval(fileArr.toString())
@@ -54,13 +71,6 @@ router.delete('/deleteFromList/:id', function (req, res) {
 })
 
 
-/*
-POST
-
-    var resu = [].concat(...arrayfie).map(({title})=>title);
-    console.log("Index of BuyMilk: " + resu.indexOf('Buy milk'));
-
-*/
 
 module.exports = router;
 

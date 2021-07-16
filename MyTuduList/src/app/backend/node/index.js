@@ -8,7 +8,7 @@ const app = express();
 app.use(cors())
 
 const port = 3000;
-
+//TODO: Redirect to main page
 app.get('/',(req,res) => {
     res.send("ok");
 })

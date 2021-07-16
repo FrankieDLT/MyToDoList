@@ -37,7 +37,7 @@ export class AppComponent {
   }
 
   showEditModal(item: any) {
-    this.form2.patchValue({"newtitle":item.title,"newdescription":item.description})
+    this.form2.patchValue({"newtitle":item.title,"oldtitle":item.title,"newdescription":item.description})
     this.isVisible2 = true;
   }
   
@@ -54,7 +54,11 @@ export class AppComponent {
 
   submiEdit(){
     if(this.form2.valid) {
-      console.log(this.form2.value)
+
+      var edit_array = [{"id":this.form2.value.oldtitle},{title: this.form2.value.newtitle,
+      description: this.form2.value.newdescription}]
+        //console.log(edit_array[1]);
+      this.listData.putInList(edit_array);
       this.closeModal();
     } else {
       alert("Do not leave blank spaces on edit");
@@ -84,6 +88,7 @@ export class AppComponent {
 
     this.form2 = this.formB.group({
       newtitle: ['',Validators.required],
+      oldtitle: ['',Validators.required],
       newdescription: ['',Validators.required]
     });
 

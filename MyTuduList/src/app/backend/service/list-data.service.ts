@@ -35,6 +35,12 @@ export class ListDataService {
     })
   }
 
+  putInList(item:any){
+    return this.http.put(`http://localhost:3000/api/changeList/${item[0].id}`,item[1]).toPromise().catch((err) =>{
+      alert("Error: "+JSON.stringify(err.status)+" = "+JSON.stringify(err.statusText)+"\nNote not found!");
+    });
+  }
+
   deleteFromList(item:any):Promise<any>{
    return this.http.delete(
       `http://localhost:3000/api/deleteFromList/${item}`).toPromise() 

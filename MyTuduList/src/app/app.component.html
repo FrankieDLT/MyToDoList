@@ -23,7 +23,7 @@
     <hr>
     <form [formGroup]="form2" (submit)="submiEdit()">
       <label for="new-note">Note Title</label>
-      <input type="text" id="new-note" placeholder="Note Title" formControlName="newtitle" >
+      <input type="text" id="new-note" placeholder="Note Title" formControlName="oldtitle" formControlName="newtitle" >
       <label for="new-des">Note Description</label>
       <textarea rows="3" type="text" id="new-des" placeholder="Note Description"
         formControlName="newdescription"></textarea>
