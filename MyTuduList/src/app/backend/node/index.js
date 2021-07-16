@@ -8,11 +8,17 @@ const app = express();
 app.use(cors())
 
 const port = 3000;
-//TODO: Redirect to main page
+
+/**
+ * The user is redirected to the main page
+ */
 app.get('/',(req,res) => {
-    res.send("ok");
+    res.redirect('http://localhost:4200/');
 })
 
+/**
+ * All the api operations are handled in the routes index.js
+ */
 app.use('/api',routes)
 
 app.listen(port, ()=>{

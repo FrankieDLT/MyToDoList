@@ -12,7 +12,7 @@
       <label for="new-des">Note Description</label>
       <textarea rows="3" type="text" id="new-des" placeholder="Note Description"
         formControlName="description"></textarea>
-        <button id="close" type="button" (click)="closeModal()">Close</button>
+      <button id="close" type="button" (click)="closeModal()">Close</button>
       <button id="sub">Submit</button>
     </form>
   </div>
@@ -23,11 +23,11 @@
     <hr>
     <form [formGroup]="form2" (submit)="submiEdit()">
       <label for="new-note">Note Title</label>
-      <input type="text" id="new-note" placeholder="Note Title" formControlName="oldtitle" formControlName="newtitle" >
+      <input type="text" id="new-note" placeholder="Note Title" formControlName="oldtitle" formControlName="newtitle">
       <label for="new-des">Note Description</label>
       <textarea rows="3" type="text" id="new-des" placeholder="Note Description"
         formControlName="newdescription"></textarea>
-        <button id="close" type="button" (click)="closeModal()">Close</button>
+      <button id="close" type="button" (click)="closeModal()">Close</button>
       <button id="sub">Submit</button>
     </form>
   </div>
@@ -43,8 +43,7 @@
 
   <div id="TodoDiv">
     <h2 id="todo-title">To Do List:</h2>
-    <button id="add_button" (click) = "showAddModal() ">+</button>
-    <!--(click)="addNote()"-->
+    <button id="add_button" (click)="showAddModal() ">+</button>
     <ul>
       <li *ngFor="let item of realList">
         <div class="container">
@@ -61,5 +60,3 @@
     </ul>
   </div>
   <router-outlet></router-outlet>
-
-  

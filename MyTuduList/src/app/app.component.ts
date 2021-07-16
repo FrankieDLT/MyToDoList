@@ -11,53 +11,58 @@ export class AppComponent {
   form!: FormGroup;
   form2!: FormGroup;
   title = 'MyTuduList';
-
   realList = [] as any;
-
-  count = 1;
-
-  toDoList = [
-    {
-      title: "Make new notes",
-      description: "Fill your Tudu list with new notes!"
-    }
-  ]
   isVisible!: boolean;
   isVisible2!: boolean;
 
   constructor(private listData: ListDataService,private formB:FormBuilder) { }
 
-  closeModal() {
-    this.isVisible = false;
-    this.isVisible2 = false;
-  }
-
+  /**
+   * Show the modal for adding new notes
+   */
   showAddModal() {
     this.isVisible = true;
   }
 
+  /**
+   * Show the modal for edditing notes and passes the information of the especific
+   * note to the input boxes while saving the original id.
+   * @param item object containing the information of the note to be eddited
+   */
   showEditModal(item: any) {
     this.form2.patchValue({"newtitle":item.title,"oldtitle":item.title,"newdescription":item.description})
     this.isVisible2 = true;
   }
+
+  /**
+   * Closes all the modals, making them invisible
+   */
+  closeModal() {
+    this.isVisible = false;
+    this.isVisible2 = false;
+  }
   
+  /**
+   * Sends the values of the new note to be saved
+   */
   submiAdd(){
     if(this.form.valid) {
-      //console.log(this.form.value)
       this.addNote(this.form.value);
       this.closeModal();
     } else {
-      alert("Do not leave blank spaces");
+      alert("Do not leave blank spaces when taking notes");
     }
     
   }
 
+  /**
+   * Sends the new values and the id of the object to be altered,
+   * they are sent together as an array
+   */
   submiEdit(){
     if(this.form2.valid) {
-
       var edit_array = [{"id":this.form2.value.oldtitle},{title: this.form2.value.newtitle,
       description: this.form2.value.newdescription}]
-        //console.log(edit_array[1]);
       this.listData.putInList(edit_array);
       this.closeModal();
     } else {
@@ -66,20 +71,26 @@ export class AppComponent {
     
   }
 
+  /**
+   * The post method its used to send the information of the new note
+   * @param item object containing the data of the new note
+   */
   addNote(item:any) {
    this.listData.postList(item);
   }
 
-  editNote(item: any){
-      console.log("This item will be modifyed" + JSON.stringify(item));
-  }
-
+  /**
+   * The delete method its called to remove the entry with the id provided
+   * @param item id of the entry to be deleted
+   */
   removeNote(item: any){
-    console.log("This item will be removed" + JSON.stringify(item.title));
     this.listData.deleteFromList(item.title);
   }
 
-  ngOnInit(): void {
+  /**
+   * "A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive"
+   */
+  async ngOnInit(): Promise<void> {
 
     this.form = this.formB.group({
       title: ['',Validators.required],
@@ -92,16 +103,14 @@ export class AppComponent {
       newdescription: ['',Validators.required]
     });
 
-    this.realList = this.listData.getList().then(
+    /**
+     * The GET method its called to retrieve the list of notes
+     */
+    this.realList = await this.listData.getList().then(
       data => this.realList = data
-      ).catch(err => alert("ERROR"))
-
-    if (this.realList === undefined || !(this.realList.length > 0)) {
-      this.toDoList.forEach(val => this.realList.push(val));
-    }
+      ).catch(err => alert("Error, could not get list"))
 
 
-    console.log(this.realList)
   }
 
   
