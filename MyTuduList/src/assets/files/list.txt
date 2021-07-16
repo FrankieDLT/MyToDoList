@@ -1,18 +1,1 @@
-[
-      {
-        "title": "Do Laundry",
-        "description": "Do my laundry"
-      },
-      {
-        "title": "Call Dad",
-        "description": "Check on Dad"
-      },
-      {
-        "title": "Buy milk",
-        "description": "Buy 2 liters of milk from store"
-      },
-      {
-        "title": "Doctors apointement",
-        "description": "Doctors apointement at 6pm on friday"
-      },
-]
+[{"title":"Call Dad","description":"Check on Dad"},{"title":"Buy Milk","description":"Buy 2 liters of milk from the store"},{"title":"Doctors Apointement","description":"Doctors apointemenet at 6pm on friday"},{"title":"Do The Laundry","description":"Do the weekly laundry"}]

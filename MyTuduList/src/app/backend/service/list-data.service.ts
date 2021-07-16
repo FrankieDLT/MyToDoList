@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import{HttpClient} from '@angular/common/http'
+import{HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +27,18 @@ export class ListDataService {
 
   getList():Promise<any>{
    return this.http.get('http://localhost:3000/api/getList').toPromise();
-   /*return new Promise((resolve,reject) =>{
-     setTimeout(() => {
-       resolve(this.list);
-     }, 2000);
-   })*/
- 
   }
+
+  postList(item: any):Promise<any>{
+    return this.http.post('http://localhost:3000/api/postList',item).toPromise().catch((err) =>{
+      alert("Error: "+JSON.stringify(err.status)+" = "+JSON.stringify(err.statusText)+"\nNote already exist!");
+    })
+  }
+
+  deleteFromList(item:any):Promise<any>{
+   return this.http.delete(
+      `http://localhost:3000/api/deleteFromList/${item}`).toPromise() 
+
+  }
+
 }

@@ -1,17 +1,58 @@
-const { Router } = require('express');
+const {
+  Router
+} = require('express');
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const bodyParser = require('body-parser');
 
-const router =express.Router(); 
+const router = express.Router();
 
-router.get('/getList', (req,res) => {
+const url = path.join(__dirname, '..', '..', '..', '..', '..', '/src/assets/files/list.txt')
+fileArr = fs.readFileSync(url)
+arrayfie = eval(fileArr.toString())
+var resu = [].concat(...arrayfie).map(({
+  title
+}) => title);
 
-    const url = path.join(__dirname,'..','..','..','..','..', '/src/assets/files/list.txt') 
+
+router.get('/getList', (req, res) => {
+
+  res.send(arrayfie);
+})
+
+router.post('/postList', bodyParser.json(), (req, res) => {
     fileArr = fs.readFileSync(url)
     arrayfie = eval(fileArr.toString())
-    res.send(arrayfie);
+    var resu = [].concat(...arrayfie).map(({
+    title
+    }) => title);
+
+  if (resu.indexOf(req.body.title) == -1) {
+
+    arrayfie.push(req.body)
+    fs.writeFileSync(url, JSON.stringify(arrayfie));
+
+  } else {
+    res.sendStatus(302);
+  }
+  
+  res.end();
+
 })
+
+router.delete('/deleteFromList/:id', function (req, res) {
+    fileArr = fs.readFileSync(url)
+    arrayfie = eval(fileArr.toString())
+    var resu = [].concat(...arrayfie).map(({
+    title
+    }) => title);
+    
+  arrayfie.splice(resu.indexOf(req.params.id), 1);
+  fs.writeFileSync(url, JSON.stringify(arrayfie));
+  res.end();
+})
+
 
 /*
 POST
@@ -27,16 +68,20 @@ module.exports = router;
 /*
 [
         {
-          title: "Breathe",
-          description: "I mean, you need it"
+          title: "Call Dad",
+          description: "Check on Dad"
         },
         {
-          title: "Think",
-          description: "I mean, you have to"
+          title: "Buy Milk",
+          description: "Buy 2 liters of milk from the store"
         },
         {
-          title: "Carry on",
-          description: "Nothing its permanent"
+          title: "Doctors Apointement",
+          description: "Doctors apointemenet at 6pm on friday"
         },
-      ]
+	{
+          title: "Do The Laundry",
+          description: "Do the weekly laundry"
+        }
+]
 */

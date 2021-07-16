@@ -2,6 +2,36 @@
 
 <div class="content" role="main">
 
+  <!--Add note modal-->
+  <div id="modal-new" [style.display]="isVisible ? 'block' : 'none'">
+    <h2>New note</h2>
+    <hr>
+    <form [formGroup]="form" (submit)="submiAdd()">
+      <label for="new-note">Note Title</label>
+      <input type="text" id="new-note" placeholder="Note Title" formControlName="title">
+      <label for="new-des">Note Description</label>
+      <textarea rows="3" type="text" id="new-des" placeholder="Note Description"
+        formControlName="description"></textarea>
+        <button id="close" type="button" (click)="closeModal()">Close</button>
+      <button id="sub">Submit</button>
+    </form>
+  </div>
+
+  <!--Edit note modal-->
+  <div id="modal-edit" [style.display]="isVisible2 ? 'block' : 'none'">
+    <h2>Edit note</h2>
+    <hr>
+    <form [formGroup]="form2" (submit)="submiEdit()">
+      <label for="new-note">Note Title</label>
+      <input type="text" id="new-note" placeholder="Note Title" formControlName="newtitle" >
+      <label for="new-des">Note Description</label>
+      <textarea rows="3" type="text" id="new-des" placeholder="Note Description"
+        formControlName="newdescription"></textarea>
+        <button id="close" type="button" (click)="closeModal()">Close</button>
+      <button id="sub">Submit</button>
+    </form>
+  </div>
+
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
     <img width="50" height="50" viewBox="0 0 101.678 101.678" src="../assets/Images/Notes.png">
@@ -13,7 +43,8 @@
 
   <div id="TodoDiv">
     <h2 id="todo-title">To Do List:</h2>
-    <button id="add_button" (click)="addNote()">+</button>
+    <button id="add_button" (click) = "showAddModal() ">+</button>
+    <!--(click)="addNote()"-->
     <ul>
       <li *ngFor="let item of realList">
         <div class="container">
@@ -22,11 +53,13 @@
             <span>{{item.description}}</span>
           </div>
           <div>
-          <button (click)="editNote(item)" id="edit">Edit</button>
-          <button (click)="removeNote(item)">Remove</button>
+            <button (click)="showEditModal(item)" id="edit">Edit</button>
+            <button (click)="removeNote(item)">Remove</button>
           </div>
         </div>
       </li>
     </ul>
   </div>
   <router-outlet></router-outlet>
+
+  
