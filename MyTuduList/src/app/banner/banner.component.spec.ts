@@ -22,4 +22,8 @@ describe('BannerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should on init', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
 });
