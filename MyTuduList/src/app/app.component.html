@@ -46,7 +46,7 @@
     <button id="add_button" (click)="showAddModal() ">+</button>
     <ul>
       <li *ngFor="let item of realList">
-        <div class="container" [style.background]="item.isDone ? 'blue' : 'transparent'">
+        <div class="container" [style.background]="item.isDone ? 'cornflowerblue' : 'transparent'">
           <div class="tittle-button">
             <h2>{{item.title}}</h2>
             <span>{{item.description}}</span>

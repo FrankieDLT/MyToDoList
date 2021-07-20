@@ -67,8 +67,9 @@ router.put('/changeList/:id', bodyParser.json(), function (req, res) {
 
   if (resu.indexOf(req.params.id) != -1) {
     arrayfie[resu.indexOf(req.params.id)] = {
-      "title": req.body.title,
-      "description": req.body.description
+      "title": req.body.title.trim(),
+      "description": req.body.description,
+      "isDone": req.body.isDone
     }
     fs.writeFileSync(url, JSON.stringify(arrayfie));
   } else {

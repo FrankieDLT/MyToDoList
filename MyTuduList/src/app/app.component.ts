@@ -45,8 +45,9 @@ export class AppComponent {
   }
 
   taskDone(item: any){
-    this.isDone = item.isDone;
-      item.isDone = !item.isDone;
+    item.isDone = !item.isDone;
+    this.listData.putInList([{"id":item.title},{title: item.title,
+      description: item.description,isDone:item.isDone}]);
   }
   
   /**
@@ -68,7 +69,7 @@ export class AppComponent {
    */
   submiEdit(){
     if(this.form2.valid) {
-      var edit_array = [{"id":this.form2.value.oldtitle},{title: this.form2.value.newtitle,
+      var edit_array = [{"id":this.form2.value.oldtitle.trim()},{title: this.form2.value.newtitle.trim(),
       description: this.form2.value.newdescription}]
       this.listData.putInList(edit_array);
       this.closeModal();
