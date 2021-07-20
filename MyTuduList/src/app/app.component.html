@@ -46,12 +46,13 @@
     <button id="add_button" (click)="showAddModal() ">+</button>
     <ul>
       <li *ngFor="let item of realList">
-        <div class="container">
+        <div class="container" [style.background]="item.isDone ? 'blue' : 'transparent'">
           <div class="tittle-button">
             <h2>{{item.title}}</h2>
             <span>{{item.description}}</span>
           </div>
           <div>
+            <button (click)="taskDone(item)"> Done!</button>
             <button (click)="showEditModal(item)" id="edit">Edit</button>
             <button (click)="removeNote(item)">Remove</button>
           </div>

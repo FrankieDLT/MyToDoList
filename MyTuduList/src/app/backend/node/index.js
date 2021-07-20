@@ -10,7 +10,7 @@ app.use(cors())
 const port = 3000;
 
 /**
- * The user is redirected to the main page
+ * The user is redirected to the main page 
  */
 app.get('/',(req,res) => {
     res.redirect('http://localhost:4200/');
@@ -20,6 +20,8 @@ app.get('/',(req,res) => {
  * All the api operations are handled in the routes index.js
  */
 app.use('/api',routes)
+
+app.use('/apiv2',routes)
 
 app.listen(port, ()=>{
     console.log("Listening on port: " + port);

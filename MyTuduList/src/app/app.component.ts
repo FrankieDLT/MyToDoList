@@ -14,9 +14,11 @@ export class AppComponent {
   realList = [] as any;
   isVisible!: boolean;
   isVisible2!: boolean;
+  isDone= false;
+
 
   constructor(private listData: ListDataService,private formB:FormBuilder) { }
-
+  
   /**
    * Show the modal for adding new notes
    */
@@ -40,6 +42,11 @@ export class AppComponent {
   closeModal() {
     this.isVisible = false;
     this.isVisible2 = false;
+  }
+
+  taskDone(item: any){
+    this.isDone = item.isDone;
+      item.isDone = !item.isDone;
   }
   
   /**
@@ -94,7 +101,8 @@ export class AppComponent {
 
     this.form = this.formB.group({
       title: ['',Validators.required],
-      description: ['',Validators.required]
+      description: ['',Validators.required],
+      isDone: [false]
     });
 
     this.form2 = this.formB.group({

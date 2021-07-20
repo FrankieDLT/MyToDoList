@@ -17,8 +17,8 @@ const url = path.join(__dirname, '..', '..', '..', '..', '..', '/src/assets/file
  * as an array to be displayed in the front end.
  */
 router.get('/getList', (req, res) => {
-  fileArr = fs.readFileSync(url)
-  arrayfie = eval(fileArr.toString())
+  fileArr = fs.readFileSync(url);
+  arrayfie = eval(fileArr.toString());
   var resu = [].concat(...arrayfie).map(({
     title
   }) => title);
@@ -33,11 +33,9 @@ router.get('/getList', (req, res) => {
  * @returns Status code containing a possibe error
  */
 router.post('/postList', bodyParser.json(), (req, res) => {
-  fileArr = fs.readFileSync(url)
-  arrayfie = eval(fileArr.toString())
-  var resu = [].concat(...arrayfie).map(({
-    title
-  }) => title);
+  
+  
+  let resu = fun()
 
   if (resu.indexOf(req.body.title) == -1) {
 
@@ -103,6 +101,14 @@ router.delete('/deleteFromList/:id', function (req, res) {
   res.end();
 })
 
+function fun() {
+  fileArr = fs.readFileSync(url)
+  arrayfie = eval(fileArr.toString())
+  var resu = [].concat(...arrayfie).map(({
+    title
+  }) => title);
+  return resu
+}
 
 
 module.exports = router;
