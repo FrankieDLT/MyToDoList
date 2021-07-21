@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
-import { ListDataService } from '../backend/service/list-data.service'
+import { ListDataService } from '../service/list-data.service'
 import {FormGroup, FormBuilder,Validators} from '@angular/forms'
 import { Item } from 'src/classes/item';
 
@@ -23,6 +23,9 @@ export class MainContainerComponent implements OnInit {
   display = false;
   isPost = false;
   auxItem!: Item;
+
+  injector: Injector = 
+    Injector.create({providers: [{provide: 'itemList', useValue: this.getLi()}]});
 
   constructor(private listData: ListDataService,private formB:FormBuilder) { }
   
@@ -72,26 +75,21 @@ export class MainContainerComponent implements OnInit {
   }
 
   /**
-   * "A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive"
-   */
-
+     * The GET method its called to retrieve the list of notes
+    */
   async getLi(){
     await this.listData.getList().then(
       data => this.realList = data
       ).catch(err => alert("Error, could not get list"))
   }
 
-  
-
-  injector: Injector = 
-    Injector.create({providers: [{provide: 'itemList', useValue: this.getLi()}]});
-  
+  /**
+   * "A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive"
+   */
     async ngOnInit(): Promise<void> {
     this.injector.get('itemList')
-    /**
-     * The GET method its called to retrieve the list of notes
     
-     await this.listData.getList().then(
+     /*await this.listData.getList().then(
       data => this.realList = data
       ).catch(err => alert("Error, could not get list")) */
 

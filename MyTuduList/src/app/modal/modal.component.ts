@@ -1,7 +1,7 @@
 import { Component, Injector, Input, OnInit, SimpleChanges } from '@angular/core';
 import {FormGroup, FormBuilder,Validators} from '@angular/forms'
 import { Item } from 'src/classes/item';
-import { ListDataService } from '../backend/service/list-data.service';
+import { ListDataService } from '../service/list-data.service';
 
 @Component({
   selector: 'app-modal',

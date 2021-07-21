@@ -5,11 +5,10 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
-
 const router = express.Router();
 
 //Url where the data file is located
-const url = path.join(__dirname, '..', '..', '..', '..', '..', '/src/assets/files/list.txt')
+const url = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/list.txt')
 
 
 /**
