@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
-import { ListDataService } from '../service/list-data.service'
+import { ListDataService } from '../../../service/list-data.service'
 import {FormGroup, FormBuilder,Validators} from '@angular/forms'
 import { Item } from 'src/classes/item';
 

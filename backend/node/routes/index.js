@@ -9,6 +9,7 @@ const router = express.Router();
 
 //Url where the data file is located
 const url = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/list.txt')
+const urli = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/lisjson.json')
 
 
 /**
@@ -16,12 +17,8 @@ const url = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/li
  * as an array to be displayed in the front end.
  */
 router.get('/getList', (req, res) => {
-  fileArr = fs.readFileSync(url);
-  arrayfie = eval(fileArr.toString());
-  var resu = [].concat(...arrayfie).map(({
-    title
-  }) => title);
-  res.send(arrayfie);
+ let resu = readFileJson()
+  res.send(arrayJson);
 })
 
 /**
@@ -33,12 +30,12 @@ router.get('/getList', (req, res) => {
  */
 router.post('/postList', bodyParser.json(), (req, res) => {
   
-  let resu = fun()
+  let resu = readFileJson()
 
   if (resu.indexOf(req.body.title) == -1) {
 
-    arrayfie.push(req.body)
-    fs.writeFileSync(url, JSON.stringify(arrayfie));
+    arrayJson.push(req.body)
+    fs.writeFileSync(urli, JSON.stringify(arrayJson));
 
   } else {
     res.sendStatus(302);
@@ -57,19 +54,16 @@ router.post('/postList', bodyParser.json(), (req, res) => {
  * @returns Status code containing a possibe error
  */
 router.put('/changeList/:id', bodyParser.json(), function (req, res) {
-  fileArr = fs.readFileSync(url)
-  arrayfie = eval(fileArr.toString())
-  var resu = [].concat(...arrayfie).map(({
-    title
-  }) => title);
+ 
+  let resu = readFileJson()
 
   if (resu.indexOf(req.params.id) != -1) {
-    arrayfie[resu.indexOf(req.params.id)] = {
+    arrayJson[resu.indexOf(req.params.id)] = {
       "title": req.body.title.trim(),
       "description": req.body.description,
       "isDone": req.body.isDone
     }
-    fs.writeFileSync(url, JSON.stringify(arrayfie));
+    fs.writeFileSync(urli, JSON.stringify(arrayJson));
   } else {
     res.sendStatus(404);
   }
@@ -85,25 +79,26 @@ router.put('/changeList/:id', bodyParser.json(), function (req, res) {
  * @returns Status code containing a possibe error
  */
 router.delete('/deleteFromList/:id', function (req, res) {
-  fileArr = fs.readFileSync(url)
-  arrayfie = eval(fileArr.toString())
-  var resu = [].concat(...arrayfie).map(({
-    title
-  }) => title);
+  
+  let resu = readFileJson()
 
   if (resu.indexOf(req.params.id) != -1) {
-  arrayfie.splice(resu.indexOf(req.params.id), 1);
-  fs.writeFileSync(url, JSON.stringify(arrayfie));
+  arrayJson.splice(resu.indexOf(req.params.id), 1);
+  fs.writeFileSync(urli, JSON.stringify(arrayJson));
   } else {
     res.sendStatus(404);
   }
   res.end();
 })
 
-function fun() {
-  fileArr = fs.readFileSync(url)
-  arrayfie = eval(fileArr.toString())
-  var resu = [].concat(...arrayfie).map(({
+/**
+ * Function that reads the file and uses an auxiliary array to checks for ids
+ * @returns auxiliary array that contais all the ids
+ */
+function readFileJson() {
+  filejson = fs.readFileSync(urli);
+  arrayJson = JSON.parse(filejson);
+  var resu = [].concat(...arrayJson).map(({
     title
   }) => title);
   return resu
