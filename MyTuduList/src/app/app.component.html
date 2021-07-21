@@ -1,35 +1,3 @@
 <app-banner></app-banner>
-
-<div class="content" role="main">
- 
-  <app-modal [display]="display" [isPost]="isPost" [auxItem]="auxItem"></app-modal>
-
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-    <img width="50" height="50" viewBox="0 0 101.678 101.678" src="../assets/Images/Notes.png">
-    <span></span>
-    <p>¿What are we doing today?</p>
-
-
-  </div>
-
-  <div id="TodoDiv">
-    <h2 id="todo-title">To Do List:</h2>
-    <button id="add_button" (click)="showAddModal()">+</button><!--showAddModal plusClick-->
-    <ul>
-      <li *ngFor="let item of realList">
-        <div class="container" [style.background]="item.isDone ? 'cornflowerblue' : 'transparent'">
-          <div class="tittle-button">
-            <h2>{{item.title}}</h2>
-            <span>{{item.description}}</span>
-          </div>
-          <div>
-            <button (click)="taskDone(item)"> Done!</button>
-            <button (click)="showEditModal(item)" id="edit">Edit</button>
-            <button (click)="removeNote(item)">Remove</button>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>
+<app-main-container></app-main-container>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Injector, Input, OnInit, SimpleChanges } from '@angular/core';
 import {FormGroup, FormBuilder,Validators} from '@angular/forms'
 import { Item } from 'src/classes/item';
 import { ListDataService } from '../backend/service/list-data.service';
@@ -26,12 +26,10 @@ export class ModalComponent implements OnInit {
     this.isVisible = true; 
     
     if(!this.isPost) {
-      console.log(this.auxItem)
       this.title = "Edit note";
       this.form.patchValue({"title":this.auxItem.title,"oldtitle":this.auxItem.title,"description":this.auxItem.description})
     } else {
       this.form.patchValue({"oldtitle":"N/A"})
-      console.log("Is post: " + this.isPost);
       this.title = "New note";
     }
     
@@ -114,7 +112,12 @@ export class ModalComponent implements OnInit {
    * @param item object containing the data of the new note
    */
   addNote(item:Item) {
-    this.listData.postList(item);
+    //this.listData.postList(item);
+    const injectorAdd = 
+    Injector.create({providers: [
+      {provide: 'addItem', useValue: this.listData.postList(item)}
+    ]});
+    injectorAdd.get('addItem')
    }
 
   /**

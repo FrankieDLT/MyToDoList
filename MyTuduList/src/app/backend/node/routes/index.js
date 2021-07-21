@@ -34,7 +34,6 @@ router.get('/getList', (req, res) => {
  */
 router.post('/postList', bodyParser.json(), (req, res) => {
   
-  
   let resu = fun()
 
   if (resu.indexOf(req.body.title) == -1) {

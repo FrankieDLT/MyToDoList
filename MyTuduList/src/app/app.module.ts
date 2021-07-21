@@ -7,12 +7,14 @@ import { BannerComponent } from './banner/banner.component';
 import{HttpClientModule} from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './modal/modal.component';
+import { MainContainerComponent } from './main-container/main-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BannerComponent,
-    ModalComponent
+    ModalComponent,
+    MainContainerComponent
   ],
   imports: [
     BrowserModule,
