@@ -1,0 +1,43 @@
+#modal-new,#modal-edit{
+    position: fixed;
+    top: 20vh;
+    left: 28vw;
+    width: 40vw;
+    background-color: darkgrey;
+    z-index: 5;
+    padding: 2%;
+    border-radius: 20px;
+    display: table;
+  }
+
+  #modal-new>h2,#modal-edit>h2{
+  vertical-align: middle;
+   display: table-header-group;
+   text-align: center;
+  }
+
+  #modal-new > *,#modal-edit>*{
+    display: block;
+  }
+
+  input,textarea{
+    width: 95%;
+  }
+
+  #close{
+   
+      float: left;
+      margin-left: 2%;
+      margin-top: 5%;
+      background-color: cornflowerblue;
+      border-radius: 15px;
+    
+  }
+
+  #sub{
+    float: right;
+    margin-right: 2%;
+    margin-top: 5%;
+    background-color: cornflowerblue;
+    border-radius: 15px;
+  }

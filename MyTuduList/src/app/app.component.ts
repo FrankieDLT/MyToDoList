@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ListDataService } from './backend/service/list-data.service'
 import {FormGroup, FormBuilder,Validators} from '@angular/forms'
+import { Item } from 'src/classes/item';
 
 @Component({
   selector: 'app-root',
@@ -8,22 +9,28 @@ import {FormGroup, FormBuilder,Validators} from '@angular/forms'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @Output() showMod = new EventEmitter<boolean>();
+
   form!: FormGroup;
   form2!: FormGroup;
   title = 'MyTuduList';
-  realList = [] as any;
-  isVisible!: boolean;
+  realList: Array<Item> = [];
+ // isVisible!: boolean;
   isVisible2!: boolean;
   isDone= false;
-
+  display = false;
+  isPost = false;
+  auxItem!: Item;
 
   constructor(private listData: ListDataService,private formB:FormBuilder) { }
+  
   
   /**
    * Show the modal for adding new notes
    */
   showAddModal() {
-    this.isVisible = true;
+   this.display = !this.display;
+   this.isPost = true;
   }
 
   /**
@@ -31,67 +38,29 @@ export class AppComponent {
    * note to the input boxes while saving the original id.
    * @param item object containing the information of the note to be eddited
    */
-  showEditModal(item: any) {
-    this.form2.patchValue({"newtitle":item.title,"oldtitle":item.title,"newdescription":item.description})
+  showEditModal(item: Item) {
+    this.auxItem = {"title":item.title,"oldtitle":item.title,"description":item.description};
+    this.isPost = false;
     this.isVisible2 = true;
   }
 
+  
   /**
-   * Closes all the modals, making them invisible
+   * Saves the status of a specific note
+   * @param item note whos status is updated
    */
-  closeModal() {
-    this.isVisible = false;
-    this.isVisible2 = false;
-  }
-
-  taskDone(item: any){
+  taskDone(item: Item){
     item.isDone = !item.isDone;
     this.listData.putInList([{"id":item.title},{title: item.title,
       description: item.description,isDone:item.isDone}]);
   }
   
-  /**
-   * Sends the values of the new note to be saved
-   */
-  submiAdd(){
-    if(this.form.valid) {
-      this.addNote(this.form.value);
-      this.closeModal();
-    } else {
-      alert("Do not leave blank spaces when taking notes");
-    }
-    
-  }
-
-  /**
-   * Sends the new values and the id of the object to be altered,
-   * they are sent together as an array
-   */
-  submiEdit(){
-    if(this.form2.valid) {
-      var edit_array = [{"id":this.form2.value.oldtitle.trim()},{title: this.form2.value.newtitle.trim(),
-      description: this.form2.value.newdescription}]
-      this.listData.putInList(edit_array);
-      this.closeModal();
-    } else {
-      alert("Do not leave blank spaces on edit");
-    }
-    
-  }
-
-  /**
-   * The post method its used to send the information of the new note
-   * @param item object containing the data of the new note
-   */
-  addNote(item:any) {
-   this.listData.postList(item);
-  }
 
   /**
    * The delete method its called to remove the entry with the id provided
    * @param item id of the entry to be deleted
    */
-  removeNote(item: any){
+  removeNote(item: Item){
     this.listData.deleteFromList(item.title);
   }
 
@@ -99,19 +68,7 @@ export class AppComponent {
    * "A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive"
    */
   async ngOnInit(): Promise<void> {
-
-    this.form = this.formB.group({
-      title: ['',Validators.required],
-      description: ['',Validators.required],
-      isDone: [false]
-    });
-
-    this.form2 = this.formB.group({
-      newtitle: ['',Validators.required],
-      oldtitle: ['',Validators.required],
-      newdescription: ['',Validators.required]
-    });
-
+    
     /**
      * The GET method its called to retrieve the list of notes
      */

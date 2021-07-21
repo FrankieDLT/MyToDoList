@@ -1,0 +1,13 @@
+<div id="modal-new" [style.display]="isVisible ? 'block' : 'none'">
+    <h2>{{title}}</h2>
+    <hr>
+    <form [formGroup]="form" (submit)="submit()">
+      <label for="new-note">Note Title</label>
+      <input type="text" id="new-note" placeholder="Note Title" formControlName="oldtitle" formControlName="title">
+      <label for="new-des">Note Description</label>
+      <textarea rows="3" type="text" id="new-des" placeholder="Note Description"
+        formControlName="description"></textarea>
+      <button id="close" type="button" (click)="closeModal()">Close</button>
+      <button id="sub">Submit</button>
+    </form>
+  </div>
