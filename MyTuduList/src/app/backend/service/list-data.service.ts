@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class ListDataService {
    * @returns and array containing all the note entries in the file
    */
   getList(): Promise<any> {
-    return this.http.get('http://localhost:3000/api/getList').toPromise();
+    return this.http.get(environment.URL+'getList').toPromise();
   }
 
   /**
@@ -23,7 +25,7 @@ export class ListDataService {
    * @returns a status code in case of any error
    */
   postList(item: any): Promise<any> {
-    return this.http.post('http://localhost:3000/api/postList', item).toPromise().catch((err) => {
+    return this.http.post(environment.URL+'postList', item).toPromise().catch((err) => {
       alert("Error: " + JSON.stringify(err.status) + " = " + JSON.stringify(err.statusText) + "\nNote already exist!");
     })
   }
@@ -34,7 +36,7 @@ export class ListDataService {
    * @returns a status code in case of any error
    */
   putInList(item: any) {
-    return this.http.put(`http://localhost:3000/api/changeList/${item[0].id}`, item[1]).toPromise().catch((err) => {
+    return this.http.put(environment.URL+`changeList/${item[0].id}`, item[1]).toPromise().catch((err) => {
       alert("Error: " + JSON.stringify(err.status) + " = " + JSON.stringify(err.statusText) + "\nNote not found!");
     });
   }
@@ -46,7 +48,7 @@ export class ListDataService {
    */
   deleteFromList(item: any): Promise<any> {
     return this.http.delete(
-      `http://localhost:3000/api/deleteFromList/${item}`).toPromise().catch((err) => {
+      environment.URL+`deleteFromList/${item}`).toPromise().catch((err) => {
         alert("Error: " + JSON.stringify(err.status) + " = " + JSON.stringify(err.statusText) + "\nNote not found!");
       });
 
