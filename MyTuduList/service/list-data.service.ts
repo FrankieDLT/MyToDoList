@@ -26,7 +26,7 @@ export class ListDataService {
    * @param item new entry to be written in the file
    * @returns a status code in case of any error
    */
-  postList(item: any): Promise<any> {
+  postList(item: Item): Promise<any> {
     return this.http.post(environment.URL+'postList', item).toPromise().catch((err) => {
       alert("Error: " + JSON.stringify(err.status) + " = " + JSON.stringify(err.statusText) + "\nNote already exist!");
     })
@@ -48,7 +48,7 @@ export class ListDataService {
    * @param item id of the entry to be deleted
    * @returns a status code in case of any error
    */
-  deleteFromList(item: any): Promise<any> {
+  deleteFromList(item: string): Promise<any> {
     return this.http.delete(
       environment.URL+`deleteFromList/${item}`).toPromise().catch((err) => {
         alert("Error: " + JSON.stringify(err.status) + " = " + JSON.stringify(err.statusText) + "\nNote not found!");

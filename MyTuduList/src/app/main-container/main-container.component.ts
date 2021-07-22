@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, SimpleChanges } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
 import { ListDataService } from '../../../service/list-data.service'
 import {FormGroup, FormBuilder,Validators} from '@angular/forms'
@@ -87,13 +87,13 @@ export class MainContainerComponent implements OnInit {
    * "A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive"
    */
     async ngOnInit(): Promise<void> {
+
     this.injector.get('itemList')
-    
-     /*await this.listData.getList().then(
-      data => this.realList = data
-      ).catch(err => alert("Error, could not get list")) */
 
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
   }
 
 }

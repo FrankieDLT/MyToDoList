@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 
 //Url where the data file is located
-const url = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/list.txt')
-const urli = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/lisjson.json')
+const urli = path.join(__dirname,'../', '../', '../','MyTuduList/otherFile/lisjson.json')
+const url = path.join(__dirname,'..', '..', '..','MyTuduList/src/assets/files/lisjson.json')
 
 
 /**
@@ -35,7 +35,7 @@ router.post('/postList', bodyParser.json(), (req, res) => {
   if (resu.indexOf(req.body.title) == -1) {
 
     arrayJson.push(req.body)
-    fs.writeFileSync(urli, JSON.stringify(arrayJson));
+    fs.writeFileSync(url, JSON.stringify(arrayJson));
 
   } else {
     res.sendStatus(302);
@@ -63,7 +63,7 @@ router.put('/changeList/:id', bodyParser.json(), function (req, res) {
       "description": req.body.description,
       "isDone": req.body.isDone
     }
-    fs.writeFileSync(urli, JSON.stringify(arrayJson));
+    fs.writeFileSync(url, JSON.stringify(arrayJson));
   } else {
     res.sendStatus(404);
   }
@@ -84,7 +84,7 @@ router.delete('/deleteFromList/:id', function (req, res) {
 
   if (resu.indexOf(req.params.id) != -1) {
   arrayJson.splice(resu.indexOf(req.params.id), 1);
-  fs.writeFileSync(urli, JSON.stringify(arrayJson));
+  fs.writeFileSync(url, JSON.stringify(arrayJson));
   } else {
     res.sendStatus(404);
   }
@@ -96,7 +96,7 @@ router.delete('/deleteFromList/:id', function (req, res) {
  * @returns auxiliary array that contais all the ids
  */
 function readFileJson() {
-  filejson = fs.readFileSync(urli);
+  filejson = fs.readFileSync(url);
   arrayJson = JSON.parse(filejson);
   var resu = [].concat(...arrayJson).map(({
     title
